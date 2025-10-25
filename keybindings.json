@@ -1,8 +1,0 @@
-[
-  {
-    "key": "ctrl+shift+f",
-    "command": "workbench.action.tasks.runTask",
-    "args": "Format Verilog",
-    "when": "editorLangId == verilog"
-  }
-]
