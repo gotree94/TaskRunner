@@ -414,7 +414,7 @@ end
 설명: 조합 논리(Combinational) always 블록
 
 5. always_seq + Tab
-```
+```verilog
 verilogalways @(posedge iCLK or negedge iRSTn) begin
   if (!iRSTn)
     
