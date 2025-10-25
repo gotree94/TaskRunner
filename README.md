@@ -350,4 +350,76 @@ python C:\Users\Administrator\verilog_formatter\verilog_formatter_cli.py your_fi
 - ✅ **dff + Tab**: D Flip-Flop 생성
 - ✅ 그 외 다양한 코드 스니펫
 
-Happy Coding! 🚀
+## 📋 사용 가능한 모든 Verilog 스니펫
+
+1. counter8 + Tab
+```
+verilogmodule counter_8bit(
+  input wire iCLK,
+  input wire iRSTn,
+  input wire iEN,
+  output reg [7:0] oCount
+);
+
+  always @(posedge iCLK or negedge iRSTn) begin
+    if (!iRSTn)
+      oCount<=8'd0;
+    else if (iEN)
+      oCount<=oCount + 1'b1;
+  end
+endmodule
+```
+설명: 8비트 카운터 (리셋 및 인에이블 포함)
+
+2. dff + Tab
+```
+verilogmodule d_ff(
+  input wire iCLK,
+  input wire iRSTn,
+  input wire iD,
+  output reg oQ
+);
+
+  always @(posedge iCLK or negedge iRSTn) begin
+    if (!iRSTn)
+      oQ<=1'b0;
+    else
+      oQ<=iD;
+  end
+
+endmodule
+```
+설명: D 플립플롭 (비동기 리셋)
+
+3. vmodule + Tab
+```
+verilogmodule module_name(
+  input wire iCLK,
+  input wire iRSTn,
+  
+);
+
+  // Your code here
+
+endmodule
+```
+설명: 기본 모듈 템플릿 (커서가 자동으로 이동하며 이름 수정 가능)
+
+4. always_comb + Tab
+```
+verilogalways @(*) begin
+  
+end
+```
+설명: 조합 논리(Combinational) always 블록
+
+5. always_seq + Tab
+```
+verilogalways @(posedge iCLK or negedge iRSTn) begin
+  if (!iRSTn)
+    
+  else
+    
+end
+```
+
