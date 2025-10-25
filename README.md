@@ -455,7 +455,7 @@ end
    * encoder - 4-to-2 인코더
    * decoder - 2-to-4 디코더
 
-8.⚡ 유틸리티
+8. ⚡ 유틸리티
    * clkdiv - 클럭 분주기
    * edge - 엣지 검출기 (rising/falling)
    * sync - 2단 동기화기 (CDC 처리)
