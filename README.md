@@ -1,5 +1,11 @@
 # VS Code Verilog 자동 정리 & 스니펫 설정 가이드
 
+### 1. Verilog 익스텐션 확인
+   * Ctrl + Shift + X (Extensions) → "Verilog" 검색
+   * "Verilog-HDL/SystemVerilog/Bluespec SystemVerilog" (mshr-h) 익스텐션이:
+
+설치가 되어있어야 함.
+
 ## 📦 필요한 파일들
 1. `verilog_formatter_cli.py` - Python 포맷터 스크립트
 2. `tasks.json` - VS Code 작업 설정
