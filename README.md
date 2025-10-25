@@ -423,3 +423,71 @@ verilogalways @(posedge iCLK or negedge iRSTn) begin
 end
 ```
 
+🔢 카운터 & 레지스터
+
+counter8 - 8비트 카운터
+countern - N비트 파라미터화 카운터 (비트 수 조정 가능)
+shiftreg - 시프트 레지스터
+
+🔄 플립플롭
+
+dff - D 플립플롭
+tff - T 플립플롭
+
+📦 메모리 & 버퍼
+
+fifo - 동기식 FIFO 버퍼 (완전한 구현)
+
+🎯 상태 머신
+
+fsm - 유한 상태 머신 템플릿 (3 always 블록)
+
+🏗️ 기본 구조
+
+vmodule - 모듈 템플릿
+testbench - 테스트벤치 템플릿 (클럭 생성 포함)
+
+🔁 제어 구조
+
+always_comb - 조합 논리 블록
+always_seq - 순차 논리 블록
+case - Case 문
+for - For 루프
+genfor - Generate for 루프
+
+🔌 조합 논리
+
+mux2 - 2-to-1 멀티플렉서
+mux4 - 4-to-1 멀티플렉서
+encoder - 4-to-2 인코더
+decoder - 2-to-4 디코더
+
+⚡ 유틸리티
+
+clkdiv - 클럭 분주기
+edge - 엣지 검출기 (rising/falling)
+sync - 2단 동기화기 (CDC 처리)
+pwm - PWM 신호 생성기
+
+🎯 사용 예시
+verilog// fsm + Tab
+parameter IDLE = 2'd0,
+          STATE1 = 2'd1,
+          STATE2 = 2'd2,
+          STATE3 = 2'd3;
+...
+
+// fifo + Tab
+module fifo #(
+  parameter DATA_WIDTH = 8,
+  parameter DEPTH = 16
+)(
+  ...
+);
+
+// testbench + Tab
+`timescale 1ns / 1ps
+module tb_module_name;
+  ...
+
+
