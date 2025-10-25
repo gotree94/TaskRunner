@@ -120,6 +120,22 @@
 
 ```
 
+```json
+// Place your key bindings in this file to override the defaults
+[
+  {
+    "key": "ctrl+n",
+    "command": "explorer.newFile"
+  },
+  {
+    "key": "alt+shift+l",
+    "command": "workbench.action.tasks.runTask",
+    "args": "Format Verilog",
+    "when": "editorLangId == verilog"
+  }
+]
+
+```
 
 ### 4단계: 새 스니펫 파일 생성 (추천)
 
