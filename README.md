@@ -12,9 +12,9 @@
 
 ### 1단계: Python 스크립트 설치
 
-1. `verilog_formatter_cli.py` 파일을 작업 폴더(workspace)의 루트에 복사
+1. `verilog_formatter_cli.py` 파일을 다음 경로에 저장
    ```
-   C:\Users\56\Desktop\your_project\
+   C:\Users\Administrator\verilog_formatter\
    └── verilog_formatter_cli.py
    ```
 
@@ -25,10 +25,30 @@
    - 또는 작업 폴더에 `.vscode` 폴더를 만들고 그 안에 `tasks.json` 생성
 3. `tasks.json` 파일 내용을 붙여넣기
 
-**중요:** `tasks.json`에서 Python 경로가 맞는지 확인!
+**중요:** Python 경로가 맞는지 확인하고, 스크립트 경로는 절대 경로로 설정되어 있습니다:
 ```json
-"command": "python",  // 또는 "python3" 또는 전체 경로
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Format Verilog",
+      "type": "shell",
+      "command": "python",
+      "args": [
+        "C:/Users/Administrator/verilog_formatter/verilog_formatter_cli.py",
+        "${file}"
+      ],
+      "presentation": {
+        "reveal": "silent",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    }
+  ]
+}
 ```
+
+이렇게 절대 경로를 사용하면 어떤 프로젝트에서도 포맷터를 사용할 수 있습니다!
 
 ### 3단계: 키보드 단축키 설정
 
@@ -102,17 +122,16 @@
 - Python이 설치되어 있는지 확인
 - `tasks.json`에서 Python 전체 경로 지정:
 ```json
-"command": "C:/Users/56/AppData/Local/Programs/Python/Python311/python.exe",
+"command": "C:/Python311/python.exe",  // 또는 실제 Python 설치 경로
 ```
 
 ### 2. 작업이 실행되지 않음
 
 **해결책:**
-- `verilog_formatter_cli.py`가 작업 폴더 루트에 있는지 확인
-- VS Code에서 폴더를 열었는지 확인 (파일만 열면 안됨)
+- `verilog_formatter_cli.py`가 `C:\Users\Administrator\verilog_formatter\` 경로에 있는지 확인
 - 터미널에서 직접 테스트:
 ```powershell
-python verilog_formatter_cli.py your_file.v
+python C:\Users\Administrator\verilog_formatter\verilog_formatter_cli.py your_file.v
 ```
 
 ### 3. 스니펫이 나타나지 않음
@@ -144,6 +163,20 @@ python verilog_formatter_cli.py your_file.v
   }
 }
 ```
+
+---
+
+## 📥 설치 방법 (간단 요약)
+
+1. `C:\Users\Administrator\verilog_formatter\` 폴더 생성
+2. `verilog_formatter_cli.py` 파일을 해당 폴더에 저장
+3. VS Code에서:
+   - 아무 프로젝트나 열기
+   - **Ctrl+Shift+P** → "Tasks: Open User Tasks" → `tasks.json` 내용 붙여넣기
+   - **Ctrl+Shift+P** → "Keyboard Shortcuts (JSON)" → `keybindings.json` 내용 추가
+   - **Ctrl+Shift+P** → "Configure User Snippets" → "verilog" → `verilog.json` 내용 붙여넣기
+
+자세한 설치 방법은 위의 단계별 가이드를 참고하세요!
 
 ---
 
