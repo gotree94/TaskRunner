@@ -1,0 +1,80 @@
+{
+  "8-bit Counter": {
+    "prefix": "counter8",
+    "body": [
+      "module counter_8bit(",
+      "  input wire iCLK,",
+      "  input wire iRSTn,",
+      "  input wire iEN,",
+      "  output reg [7:0] oCount",
+      ");",
+      "",
+      "  always @(posedge iCLK or negedge iRSTn) begin",
+      "    if (!iRSTn)",
+      "      oCount<=8'd0;",
+      "    else if (iEN)",
+      "      oCount<=oCount + 1'b1;",
+      "  end",
+      "",
+      "endmodule"
+    ],
+    "description": "8-bit counter with reset and enable"
+  },
+  "D Flip-Flop": {
+    "prefix": "dff",
+    "body": [
+      "module d_ff(",
+      "  input wire iCLK,",
+      "  input wire iRSTn,",
+      "  input wire iD,",
+      "  output reg oQ",
+      ");",
+      "",
+      "  always @(posedge iCLK or negedge iRSTn) begin",
+      "    if (!iRSTn)",
+      "      oQ<=1'b0;",
+      "    else",
+      "      oQ<=iD;",
+      "  end",
+      "",
+      "endmodule"
+    ],
+    "description": "D Flip-Flop with asynchronous reset"
+  },
+  "Module Template": {
+    "prefix": "vmodule",
+    "body": [
+      "module ${1:module_name}(",
+      "  input wire ${2:iCLK},",
+      "  input wire ${3:iRSTn},",
+      "  $0",
+      ");",
+      "",
+      "  // Your code here",
+      "",
+      "endmodule"
+    ],
+    "description": "Basic Verilog module template"
+  },
+  "Always Block - Combinational": {
+    "prefix": "always_comb",
+    "body": [
+      "always @(*) begin",
+      "  $0",
+      "end"
+    ],
+    "description": "Combinational always block"
+  },
+  "Always Block - Sequential": {
+    "prefix": "always_seq",
+    "body": [
+      "always @(posedge ${1:iCLK} or negedge ${2:iRSTn}) begin",
+      "  if (!${2:iRSTn})",
+      "    $0",
+      "  else",
+      "    ",
+      "end"
+    ],
+    "description": "Sequential always block with async reset"
+  }
+}
