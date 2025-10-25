@@ -48,7 +48,7 @@
 }
 ```
 
-```
+```json
 {
     // See https://go.microsoft.com/fwlink/?LinkId=733558
     // for the documentation about the tasks.json format
@@ -101,7 +101,7 @@
 
 **결과:** Verilog 파일에서 **Ctrl + Shift + F**를 누르면 자동 정리!
 
-```
+```json
 // Place your key bindings in this file to override the defaults
 [
   {
@@ -123,7 +123,7 @@
 1. 파일 이름에 "verilog" 입력
 1. 생성된 파일에 verilog.json 내용 붙여넣기
 
-```
+```json
 {
   "8-bit Counter": {
     "prefix": "counter8",
