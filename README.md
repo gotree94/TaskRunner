@@ -48,6 +48,49 @@
 }
 ```
 
+```
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "msbuild",
+            "args": [
+                // Ask msbuild to generate full paths for file names.
+                "/property:GenerateFullPaths=true",
+                "/t:build",
+                // Do not generate summary otherwise it leads to duplicate errors in Problems panel
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "group": "build",
+            "presentation": {
+                // Reveal the output only if unrecognized errors occur.
+                "reveal": "silent"
+            },
+            // Use the standard MS compiler pattern to detect errors, warnings and infos
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Format Verilog",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "C:/Users/Administrator/verilog_formatter/verilog_formatter_cli.py",
+                "${file}"
+            ],
+            "presentation": {
+                "reveal": "silent",
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        }
+    ]
+}
+```
+
 이렇게 절대 경로를 사용하면 어떤 프로젝트에서도 포맷터를 사용할 수 있습니다!
 
 ### 3단계: 키보드 단축키 설정
@@ -58,6 +101,20 @@
 
 **결과:** Verilog 파일에서 **Ctrl + Shift + F**를 누르면 자동 정리!
 
+```
+// Place your key bindings in this file to override the defaults
+[
+  {
+    "key": "ctrl+shift+f",
+    "command": "workbench.action.tasks.runTask",
+    "args": "Format Verilog",
+    "when": "editorLangId == verilog"
+  }
+]
+
+```
+
+
 ### 4단ㅖ: 새 스니펫 파일 생성 (추천)
 
 1. Ctrl + Shift + P 눌러서 명령 팔레트 열기
@@ -65,6 +122,90 @@
 1. "New Global Snippets file..." 선택
 1. 파일 이름에 "verilog" 입력
 1. 생성된 파일에 verilog.json 내용 붙여넣기
+
+```
+{
+  "8-bit Counter": {
+    "prefix": "counter8",
+    "body": [
+      "module counter_8bit(",
+      "  input wire iCLK,",
+      "  input wire iRSTn,",
+      "  input wire iEN,",
+      "  output reg [7:0] oCount",
+      ");",
+      "",
+      "  always @(posedge iCLK or negedge iRSTn) begin",
+      "    if (!iRSTn)",
+      "      oCount<=8'd0;",
+      "    else if (iEN)",
+      "      oCount<=oCount + 1'b1;",
+      "  end",
+      "",
+      "endmodule"
+    ],
+    "description": "8-bit counter with reset and enable"
+  },
+  "D Flip-Flop": {
+    "prefix": "dff",
+    "body": [
+      "module d_ff(",
+      "  input wire iCLK,",
+      "  input wire iRSTn,",
+      "  input wire iD,",
+      "  output reg oQ",
+      ");",
+      "",
+      "  always @(posedge iCLK or negedge iRSTn) begin",
+      "    if (!iRSTn)",
+      "      oQ<=1'b0;",
+      "    else",
+      "      oQ<=iD;",
+      "  end",
+      "",
+      "endmodule"
+    ],
+    "description": "D Flip-Flop with asynchronous reset"
+  },
+  "Module Template": {
+    "prefix": "vmodule",
+    "body": [
+      "module ${1:module_name}(",
+      "  input wire ${2:iCLK},",
+      "  input wire ${3:iRSTn},",
+      "  $0",
+      ");",
+      "",
+      "  // Your code here",
+      "",
+      "endmodule"
+    ],
+    "description": "Basic Verilog module template"
+  },
+  "Always Block - Combinational": {
+    "prefix": "always_comb",
+    "body": [
+      "always @(*) begin",
+      "  $0",
+      "end"
+    ],
+    "description": "Combinational always block"
+  },
+  "Always Block - Sequential": {
+    "prefix": "always_seq",
+    "body": [
+      "always @(posedge ${1:iCLK} or negedge ${2:iRSTn}) begin",
+      "  if (!${2:iRSTn})",
+      "    $0",
+      "  else",
+      "    ",
+      "end"
+    ],
+    "description": "Sequential always block with async reset"
+  }
+}
+
+```
 
 
 ### 5단계: 코드 스니펫 설정
