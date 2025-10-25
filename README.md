@@ -105,7 +105,7 @@
 2. "Preferences: Open Keyboard Shortcuts (JSON)" 입력 후 선택
 3. `keybindings.json` 내용을 기존 파일에 **추가** (덮어쓰지 말고 추가!)
 
-**결과:** Verilog 파일에서 **Ctrl + Shift + F**를 누르면 자동 정리!
+**결과:** Verilog 파일에서 **Altl + Shift + L**를 누르면 자동 정리!
 
 ```json
 // Place your key bindings in this file to override the defaults
@@ -227,7 +227,7 @@
 
 VS Code에서 test.v 파일 열기
 Ctrl + Shift + P → "Tasks: Run Task" → "Format Verilog" 선택
-또는 Ctrl + Shift + F 누르기
+또는 Altl + Shift + L 누르기
 ---
 
 ## 🎯 사용 방법
@@ -235,7 +235,7 @@ Ctrl + Shift + P → "Tasks: Run Task" → "Format Verilog" 선택
 ### 자동 정리 (Formatting)
 
 1. Verilog 파일(`.v` 또는 `.sv`) 열기
-2. **Ctrl + Shift + F** 누르기
+2. **Altl + Shift + L** 누르기
 3. 파일이 자동으로 정리됨!
 
 ### 코드 스니펫
@@ -345,7 +345,7 @@ python C:\Users\Administrator\verilog_formatter\verilog_formatter_cli.py your_fi
 ## 🎉 완료!
 
 이제 다음 기능들을 사용할 수 있습니다:
-- ✅ **Ctrl + Shift + F**: Verilog 코드 자동 정리
+- ✅ **Altl + Shift + L**: Verilog 코드 자동 정리
 - ✅ **counter8 + Tab**: 8비트 카운터 생성
 - ✅ **dff + Tab**: D Flip-Flop 생성
 - ✅ 그 외 다양한 코드 스니펫
