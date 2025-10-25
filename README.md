@@ -994,7 +994,7 @@ python C:\Users\Administrator\verilog_formatter\verilog_formatter_cli.py your_fi
 
 1. counter8 + Tab
 ```verilog
-verilogmodule counter_8bit(
+module counter_8bit(
   input wire iCLK,
   input wire iRSTn,
   input wire iEN,
@@ -1013,7 +1013,7 @@ endmodule
 
 2. dff + Tab
 ```verilog
-verilogmodule d_ff(
+module d_ff(
   input wire iCLK,
   input wire iRSTn,
   input wire iD,
@@ -1033,7 +1033,7 @@ endmodule
 
 3. vmodule + Tab
 ```verilog
-verilogmodule module_name(
+module module_name(
   input wire iCLK,
   input wire iRSTn,
   
@@ -1047,7 +1047,7 @@ endmodule
 
 4. always_comb + Tab
 ```verilog
-verilogalways @(*) begin
+always @(*) begin
   
 end
 ```
@@ -1055,7 +1055,7 @@ end
 
 5. always_seq + Tab
 ```verilog
-verilogalways @(posedge iCLK or negedge iRSTn) begin
+always @(posedge iCLK or negedge iRSTn) begin
   if (!iRSTn)
     
   else
