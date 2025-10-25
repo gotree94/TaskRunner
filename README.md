@@ -216,6 +216,12 @@
    - 만약 없다면 "New Global Snippets file..." 선택하고 "verilog" 입력
 4. `verilog.json` 파일 내용을 붙여넣기
 
+
+3. VS Code에서 테스트
+
+VS Code에서 test.v 파일 열기
+Ctrl + Shift + P → "Tasks: Run Task" → "Format Verilog" 선택
+또는 Ctrl + Shift + F 누르기
 ---
 
 ## 🎯 사용 방법
