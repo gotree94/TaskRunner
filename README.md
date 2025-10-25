@@ -723,13 +723,12 @@
 ```
 
 
-### 5단계: 코드 스니펫 설정
-
-1. **Ctrl + Shift + P** 눌러서 명령 팔레트 열기
-2. "Preferences: Configure User Snippets" 입력 후 선택
-3. "verilog" 또는 "verilog (Verilog)" 선택
-   - 만약 없다면 "New Global Snippets file..." 선택하고 "verilog" 입력
-4. `verilog.json` 파일 내용을 붙여넣기
+### ~~5단계: 코드 스니펫 설정~~
+~~1. **Ctrl + Shift + P** 눌러서 명령 팔레트 열기~~
+~~2. "Preferences: Configure User Snippets" 입력 후 선택~~
+~~3. "verilog" 또는 "verilog (Verilog)" 선택~~
+   ~~- 만약 없다면 "New Global Snippets file..." 선택하고 "verilog" 입력~~
+~~4. `verilog.json` 파일 내용을 붙여넣기~~
 
 
 3. VS Code에서 테스트
