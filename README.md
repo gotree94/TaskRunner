@@ -730,8 +730,140 @@
    ~~- 만약 없다면 "New Global Snippets file..." 선택하고 "verilog" 입력~~
 ~~4. `verilog.json` 파일 내용을 붙여넣기~~
 
+### TEST Code
+```verilog
+module uart_transmitter(iCLK,iRSTn,iTxStart,iTxData,oBusy,oTxSerial);
+input iCLK,iRSTn,iTxStart;
+input [7:0] iTxData;output reg oBusy;
+output reg oTxSerial;
+parameter IDLE=3'd0,START=3'd1,DATA=3'd2,PARITY=3'd3,STOP=3'd4;
+parameter BAUD_RATE=9600;
+    parameter CLK_FREQ=50000000;
+localparam BAUD_DIV=CLK_FREQ/BAUD_RATE;
+reg [2:0] state,next_state;reg [7:0] tx_shift_reg;
+reg [15:0] baud_counter;
+  reg [3:0] bit_counter;reg parity_bit;
+always@(posedge iCLK or negedge iRSTn)begin
+if(!iRSTn)begin
+state<=IDLE;baud_counter<=0;
+        bit_counter<=0;
+tx_shift_reg<=8'h00;oTxSerial<=1'b1;
+oBusy<=1'b0;
+     parity_bit<=1'b0;
+end else begin
+state<=next_state;
+case(state)
+IDLE:begin oTxSerial<=1'b1;
+oBusy<=1'b0;
+if(iTxStart)begin tx_shift_reg<=iTxData;
+parity_bit<=^iTxData;baud_counter<=0;
+oBusy<=1'b1;end
+end
+    START:begin
+oTxSerial<=1'b0;
+if(baud_counter>=BAUD_DIV-1)begin baud_counter<=0;
+bit_counter<=0;
+end else begin baud_counter<=baud_counter+1;
+end end
+DATA:begin oTxSerial<=tx_shift_reg[0];
+if(baud_counter>=BAUD_DIV-1)begin
+baud_counter<=0;tx_shift_reg<={1'b0,tx_shift_reg[7:1]};
+if(bit_counter>=7)begin bit_counter<=0;
+end else begin
+    bit_counter<=bit_counter+1;end
+end else begin baud_counter<=baud_counter+1;
+end
+end
+        PARITY:begin
+oTxSerial<=parity_bit;
+if(baud_counter>=BAUD_DIV-1)begin baud_counter<=0;
+end else begin
+baud_counter<=baud_counter+1;end
+end
+STOP:begin oTxSerial<=1'b1;
+if(baud_counter>=BAUD_DIV-1)begin
+baud_counter<=0;oBusy<=1'b0;
+end else begin
+    baud_counter<=baud_counter+1;
+end end
+default:begin
+oTxSerial<=1'b1;oBusy<=1'b0;
+end
+endcase
+end
+end
+always@(*)begin
+next_state=state;
+case(state)
+IDLE:if(iTxStart)next_state=START;
+    START:if(baud_counter>=BAUD_DIV-1)next_state=DATA;
+DATA:if(baud_counter>=BAUD_DIV-1&&bit_counter>=7)next_state=PARITY;
+PARITY:if(baud_counter>=BAUD_DIV-1)next_state=STOP;
+STOP:if(baud_counter>=BAUD_DIV-1)next_state=IDLE;
+default:next_state=IDLE;
+endcase
+end
+endmodule
+module fifo_buffer #(parameter DATA_WIDTH=8,DEPTH=16)(iCLK,iRSTn,iWrEn,iRdEn,iWrData,oRdData,oFull,oEmpty,oCount);
+input iCLK,iRSTn,iWrEn,iRdEn;
+    input [DATA_WIDTH-1:0] iWrData;output reg [DATA_WIDTH-1:0] oRdData;
+output reg oFull,oEmpty;
+output reg [$clog2(DEPTH):0] oCount;
+reg [DATA_WIDTH-1:0] memory [0:DEPTH-1];
+reg [$clog2(DEPTH)-1:0] wr_ptr,rd_ptr;integer i;
+always@(posedge iCLK or negedge iRSTn)begin
+if(!iRSTn)begin
+wr_ptr<=0;rd_ptr<=0;oCount<=0;
+        oFull<=0;oEmpty<=1;oRdData<=0;
+for(i=0;i<DEPTH;i=i+1)begin
+memory[i]<=0;
+end end else begin
+if(iWrEn&&!oFull)begin memory[wr_ptr]<=iWrData;
+wr_ptr<=wr_ptr+1;
+    if(oCount<DEPTH)oCount<=oCount+1;
+end
+if(iRdEn&&!oEmpty)begin oRdData<=memory[rd_ptr];
+rd_ptr<=rd_ptr+1;
+if(oCount>0)oCount<=oCount-1;
+end
+if(iWrEn&&!oFull&&!(iRdEn&&!oEmpty))begin oEmpty<=0;
+    if(oCount>=DEPTH-1)oFull<=1;
+end else if(iRdEn&&!oEmpty&&!(iWrEn&&!oFull))begin
+oFull<=0;
+if(oCount<=1)oEmpty<=1;end
+end
+end
+endmodule
+module alu_16bit(iA,iB,iOp,oResult,oZero,oCarry,oOverflow);
+input [15:0] iA,iB;
+input [3:0] iOp;output reg [15:0] oResult;
+output reg oZero,oCarry,oOverflow;
+wire [16:0] add_result,sub_result;
+    assign add_result=iA+iB;assign sub_result=iA-iB;
+always@(*)begin
+oCarry=0;oOverflow=0;
+case(iOp)
+4'b0000:oResult=iA+iB;
+4'b0001:begin oResult=add_result[15:0];oCarry=add_result[16];
+    oOverflow=(iA[15]==iB[15])&&(oResult[15]!=iA[15]);end
+4'b0010:oResult=iA-iB;
+4'b0011:oResult=iA&iB;4'b0100:oResult=iA|iB;
+4'b0101:oResult=iA^iB;
+    4'b0110:oResult=~iA;
+4'b0111:oResult=iA<<iB[3:0];4'b1000:oResult=iA>>iB[3:0];
+4'b1001:oResult=$signed(iA)>>>iB[3:0];
+4'b1010:oResult=(iA<iB)?16'd1:16'd0;
+4'b1011:oResult=(iA==iB)?16'd1:16'd0;
+default:oResult=16'd0;
+endcase
+    oZero=(oResult==16'd0)?1'b1:1'b0;
+end
+endmodule
+```
 
-3. VS Code에서 테스트
+
+
+## 3. VS Code에서 테스트
 
 VS Code에서 test.v 파일 열기
 Ctrl + Shift + P → "Tasks: Run Task" → "Format Verilog" 선택
