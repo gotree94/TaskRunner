@@ -58,7 +58,16 @@
 
 **결과:** Verilog 파일에서 **Ctrl + Shift + F**를 누르면 자동 정리!
 
-### 4단계: 코드 스니펫 설정
+### 4단ㅖ: 새 스니펫 파일 생성 (추천)
+
+1. Ctrl + Shift + P 눌러서 명령 팔레트 열기
+1. "Preferences: Configure User Snippets" 입력 후 선택
+1. "New Global Snippets file..." 선택
+1. 파일 이름에 "verilog" 입력
+1. 생성된 파일에 verilog.json 내용 붙여넣기
+
+
+### 5단계: 코드 스니펫 설정
 
 1. **Ctrl + Shift + P** 눌러서 명령 팔레트 열기
 2. "Preferences: Configure User Snippets" 입력 후 선택
