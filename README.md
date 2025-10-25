@@ -353,7 +353,7 @@ python C:\Users\Administrator\verilog_formatter\verilog_formatter_cli.py your_fi
 ## 📋 사용 가능한 모든 Verilog 스니펫
 
 1. counter8 + Tab
-```
+```verilog
 verilogmodule counter_8bit(
   input wire iCLK,
   input wire iRSTn,
@@ -372,7 +372,7 @@ endmodule
 설명: 8비트 카운터 (리셋 및 인에이블 포함)
 
 2. dff + Tab
-```
+```verilog
 verilogmodule d_ff(
   input wire iCLK,
   input wire iRSTn,
@@ -392,7 +392,7 @@ endmodule
 설명: D 플립플롭 (비동기 리셋)
 
 3. vmodule + Tab
-```
+```verilog
 verilogmodule module_name(
   input wire iCLK,
   input wire iRSTn,
@@ -406,7 +406,7 @@ endmodule
 설명: 기본 모듈 템플릿 (커서가 자동으로 이동하며 이름 수정 가능)
 
 4. always_comb + Tab
-```
+```verilog
 verilogalways @(*) begin
   
 end
