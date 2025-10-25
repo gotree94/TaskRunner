@@ -121,7 +121,7 @@
 ```
 
 
-### 4단ㅖ: 새 스니펫 파일 생성 (추천)
+### 4단계: 새 스니펫 파일 생성 (추천)
 
 1. Ctrl + Shift + P 눌러서 명령 팔레트 열기
 1. "Preferences: Configure User Snippets" 입력 후 선택
