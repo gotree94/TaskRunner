@@ -4,6 +4,7 @@
    * Ctrl + Shift + X (Extensions) → "Verilog" 검색
    * "Verilog-HDL/SystemVerilog/Bluespec SystemVerilog" (mshr-h) 익스텐션이:
 
+
 설치가 되어있어야 함.
 
 ## 📦 필요한 파일들
@@ -96,6 +97,44 @@
     ]
 }
 ```
+
+```
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "msbuild",
+            "args": [
+                "/property:GenerateFullPaths=true",
+                "/t:build",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "silent"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Format Verilog",
+            "type": "shell",
+            "command": "C:/ProgramData/anaconda3/python.exe",
+            "args": [
+                "C:/Users/56/Desktop/verilog_formatter/verilog_formatter_cli.py",
+                "${file}"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        }
+    ]
+}
+```
+
 
 이렇게 절대 경로를 사용하면 어떤 프로젝트에서도 포맷터를 사용할 수 있습니다!
 
