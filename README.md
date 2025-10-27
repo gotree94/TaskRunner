@@ -33,27 +33,6 @@
 3. `tasks.json` 파일 내용을 붙여넣기
 
 **중요:** Python 경로가 맞는지 확인하고, 스크립트 경로는 절대 경로로 설정되어 있습니다:
-```json
-{
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "Format Verilog",
-      "type": "shell",
-      "command": "python",
-      "args": [
-        "C:/Users/Administrator/verilog_formatter/verilog_formatter_cli.py",
-        "${file}"
-      ],
-      "presentation": {
-        "reveal": "silent",
-        "panel": "shared"
-      },
-      "problemMatcher": []
-    }
-  ]
-}
-```
 
 ```json
 {
@@ -98,44 +77,6 @@
 }
 ```
 
-```
-{
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "build",
-            "type": "shell",
-            "command": "msbuild",
-            "args": [
-                "/property:GenerateFullPaths=true",
-                "/t:build",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "group": "build",
-            "presentation": {
-                "reveal": "silent"
-            },
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "Format Verilog",
-            "type": "shell",
-            "command": "C:/ProgramData/anaconda3/python.exe",
-            "args": [
-                "C:/Users/56/Desktop/verilog_formatter/verilog_formatter_cli.py",
-                "${file}"
-            ],
-            "presentation": {
-                "reveal": "always",
-                "panel": "shared"
-            },
-            "problemMatcher": []
-        }
-    ]
-}
-```
-
-
 이렇게 절대 경로를 사용하면 어떤 프로젝트에서도 포맷터를 사용할 수 있습니다!
 
 ### 3단계: 키보드 단축키 설정
@@ -145,19 +86,6 @@
 3. `keybindings.json` 내용을 기존 파일에 **추가** (덮어쓰지 말고 추가!)
 
 **결과:** Verilog 파일에서 **Altl + Shift + L**를 누르면 자동 정리!
-
-```json
-// Place your key bindings in this file to override the defaults
-[
-  {
-    "key": "ctrl+shift+f",
-    "command": "workbench.action.tasks.runTask",
-    "args": "Format Verilog",
-    "when": "editorLangId == verilog"
-  }
-]
-
-```
 
 ```json
 // Place your key bindings in this file to override the defaults
@@ -183,90 +111,6 @@
 1. "New Global Snippets file..." 선택
 1. 파일 이름에 "verilog" 입력
 1. 생성된 파일에 verilog.json 내용 붙여넣기
-
-```json
-{
-  "8-bit Counter": {
-    "prefix": "counter8",
-    "body": [
-      "module counter_8bit(",
-      "  input wire iCLK,",
-      "  input wire iRSTn,",
-      "  input wire iEN,",
-      "  output reg [7:0] oCount",
-      ");",
-      "",
-      "  always @(posedge iCLK or negedge iRSTn) begin",
-      "    if (!iRSTn)",
-      "      oCount<=8'd0;",
-      "    else if (iEN)",
-      "      oCount<=oCount + 1'b1;",
-      "  end",
-      "",
-      "endmodule"
-    ],
-    "description": "8-bit counter with reset and enable"
-  },
-  "D Flip-Flop": {
-    "prefix": "dff",
-    "body": [
-      "module d_ff(",
-      "  input wire iCLK,",
-      "  input wire iRSTn,",
-      "  input wire iD,",
-      "  output reg oQ",
-      ");",
-      "",
-      "  always @(posedge iCLK or negedge iRSTn) begin",
-      "    if (!iRSTn)",
-      "      oQ<=1'b0;",
-      "    else",
-      "      oQ<=iD;",
-      "  end",
-      "",
-      "endmodule"
-    ],
-    "description": "D Flip-Flop with asynchronous reset"
-  },
-  "Module Template": {
-    "prefix": "vmodule",
-    "body": [
-      "module ${1:module_name}(",
-      "  input wire ${2:iCLK},",
-      "  input wire ${3:iRSTn},",
-      "  $0",
-      ");",
-      "",
-      "  // Your code here",
-      "",
-      "endmodule"
-    ],
-    "description": "Basic Verilog module template"
-  },
-  "Always Block - Combinational": {
-    "prefix": "always_comb",
-    "body": [
-      "always @(*) begin",
-      "  $0",
-      "end"
-    ],
-    "description": "Combinational always block"
-  },
-  "Always Block - Sequential": {
-    "prefix": "always_seq",
-    "body": [
-      "always @(posedge ${1:iCLK} or negedge ${2:iRSTn}) begin",
-      "  if (!${2:iRSTn})",
-      "    $0",
-      "  else",
-      "    ",
-      "end"
-    ],
-    "description": "Sequential always block with async reset"
-  }
-}
-
-```
 
 ```json
 {
@@ -761,14 +605,6 @@
 }
 ```
 
-
-### ~~5단계: 코드 스니펫 설정~~
-~~1. **Ctrl + Shift + P** 눌러서 명령 팔레트 열기~~
-~~2. "Preferences: Configure User Snippets" 입력 후 선택~~
-~~3. "verilog" 또는 "verilog (Verilog)" 선택~~
-   ~~- 만약 없다면 "New Global Snippets file..." 선택하고 "verilog" 입력~~
-~~4. `verilog.json` 파일 내용을 붙여넣기~~
-
 ### TEST Code
 ```verilog
 module uart_transmitter(iCLK,iRSTn,iTxStart,iTxData,oBusy,oTxSerial);
@@ -901,11 +737,10 @@ endmodule
 ```
 
 
-
 ## 3. VS Code에서 테스트
 
 VS Code에서 test.v 파일 열기
-Ctrl + Shift + P → "Tasks: Run Task" → "Format Verilog" 선택
+Ctrl + Shift + F → "Tasks: Run Task" → "Format Verilog" 선택
 또는 Altl + Shift + L 누르기
 ---
 
